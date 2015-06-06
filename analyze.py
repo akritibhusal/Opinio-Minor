@@ -5,8 +5,10 @@ import sys
 from bayes import classify
 from t2l import txt_to_list
 
+#Setting default encoding to utf-8 to support nepali text
 reload(sys)
 sys.setdefaultencoding('utf8')
+
 
 def final_result(text):
 

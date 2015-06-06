@@ -4,16 +4,13 @@ import MySQLdb
 import sys, re
 from t2l import txt_to_list
 
+#Setting default encoding to utf-8 to support nepali text
 reload(sys)
 sys.setdefaultencoding('utf8') 
 
-db = MySQLdb.connect("localhost","root","root", "bayes" )
+db = MySQLdb.connect("localhost","user","password", "bayes" )
 cursor = db.cursor()
 cursor.execute("SET NAMES utf8")
-
-# clean_eng_senti = "SELECT * FROM `clean_eng_senti` WHERE SynsetTerms = '%s'" % (row[0])
-# sqlIns = "INSERT INTO clean_nep_senti(POS, ID, PosScore, NegScore, SynsetTerms) VALUES('%s', '%s', '%s', '%s', '%s')" % \
-# (search_list[0], search_list[1], float(search_list[2]), float(search_list[3]), row[i])
 
 def prob_4_word(word):
 	PROB_RARE_WORD = 0.5
@@ -25,9 +22,6 @@ def prob_4_word(word):
 	sqlSel_neg = "SELECT * FROM `classified` WHERE word = '%s' AND tag = '%s'" % (word, 'n')
 	cursor.execute(sqlSel_neg)
 	data_neg = cursor.fetchone()
-
-	# print "POS", sqlSel_pos
-	# print "NEG", sqlSel_neg
 
 	if data_pos:
 		pos_count = data_pos[2]
@@ -47,8 +41,6 @@ def prob_4_word(word):
 
 
 def prob_4_list(prob_list):
-	# PROB_LIST = 0
-
 	prob_product         = reduce(lambda x,y: x*y, prob_list)
 	prob_inverse_product = reduce(lambda x,y: x*y, map(lambda x: 1-x, prob_list))
 
@@ -57,7 +49,7 @@ def prob_4_list(prob_list):
 
 def classify(text):
 	pl = []
-	negation_words=['not','dont']
+	negation_words=['not','dont'] 
 	intensifier_words=['very','extremely']
 
 	text = text.replace("'", "")
@@ -66,7 +58,6 @@ def classify(text):
 	for word in text_list:			
 		prob = prob_4_word(word)
 		pl.append(prob)
-		#print word, prob
 		
 			
 		result=prob_4_list(pl)

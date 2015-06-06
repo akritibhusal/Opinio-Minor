@@ -8,7 +8,7 @@ from t2l import txt_to_list
 reload(sys)
 sys.setdefaultencoding('utf8') 
 
-db = MySQLdb.connect("localhost","root","root", "bayes" )
+db = MySQLdb.connect("localhost","user","password", "bayes" )
 cursor = db.cursor()
 cursor.execute("SET NAMES utf8")
 
