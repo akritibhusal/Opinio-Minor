@@ -1,0 +1,41 @@
+#!usr/bin/python
+
+from Tkinter import *
+
+root = Tk()
+root.geometry("700x500")
+##frame = Frame(root)
+##frame.pack()
+
+logo = PhotoImage(file="op.png")
+w1 = Label(root, image=logo,bd=0)
+w1.grid(row=1,column=1,padx=200,pady=50)
+
+
+##Label(text="window one").pack()
+label = Label(root, bg="white",text="Enter Keyword")
+label.grid(row=4, column=1,sticky=W,rowspan=2,columnspan=2,padx=150)
+E1 = Text(root, bd =0,height=2,width=40)
+E1.grid(row=4, column=2,rowspan=1,columnspan=1,padx=280,pady=50)
+
+
+##E1.pack(padx=150, pady=15)
+root.configure(background = 'white')
+def callback():
+    print "click!"
+
+analyzeButton = Button(root, text="Analyze Sentence", command=callback)
+analyzeButton.grid(row=10, column=2)
+##analyzeButton.pack(padx=5, pady=10, expand=1)
+
+twitterButton = Button(root, text="Twitter Analytics", command=callback)
+twitterButton.grid(row=10, column=6)
+##twitterButton.pack(padx=1, pady=10, expand=1)
+
+frame = Frame(width=768, height=576, bg="", colormap="new")
+##frame.pack()
+
+
+text = Text(root)
+
+root.mainloop()
